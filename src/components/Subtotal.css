@@ -1,0 +1,63 @@
+.subTotalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 10rem;
+    max-height: max-content;
+    width: 20.2rem;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.subTotal {
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 19.3rem;
+    background-color: #fff;
+    padding-top: 1rem;
+    line-height: 1.5rem;
+}
+
+.subTotalText {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.2rem;
+}
+
+.rupeeSymbol {
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+    margin-right: 0.1rem;
+}
+
+.subTotalText,
+.subtotalGift {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+input[type="checkbox"] {
+    vertical-align: text-top
+}
+
+.proceedToBuyBtnContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.proceedToBuyBtn {
+    height: 2rem;
+    width: calc(100% - 2rem);
+    margin: 1rem;
+    border: 1px solid #f8d225;
+    border-radius: 0.5rem;
+    background-color: #f8d225;
+    color: #000;
+}
+
+.proceedToBuyBtn:hover {
+    background-color: #edc306;
+    cursor: pointer;
+}

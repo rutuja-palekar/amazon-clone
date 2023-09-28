@@ -1,0 +1,36 @@
+.checkoutProductWrapper {
+    display: flex;
+    width: 60rem;
+}
+
+.checkoutProductDetails {
+    padding-left: 1.25rem;
+}
+
+.checkoutProductDeleteBtn {
+    background-color: #fff;
+    color: #007185;
+    border: 1px solid #d3d3d3;
+    border-top: none;
+    border-bottom: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1rem;
+}
+
+.checkoutProductDeleteBtn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.checkoutProductImg {
+    object-fit: contain;
+    height: 11.25rem;
+    width: 11.25rem;
+}
+
+.checkoutProductTitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+}
