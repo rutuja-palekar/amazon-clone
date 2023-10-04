@@ -48,6 +48,10 @@
     justify-content: space-evenly;
 }
 
+.headerLoginLink {
+    text-decoration: none;
+}
+
 .navMenus {
     display: flex;
     flex-direction: column;

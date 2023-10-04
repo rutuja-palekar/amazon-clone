@@ -10,3 +10,11 @@ Tech Stack:
 
 Features:
 Used React's Context 
+Firebase Authentication
+
+
+Demo Accounts to Sign in:
+
+user@gmail.com, User@1234
+
+name@gmail.com, myname

@@ -1,28 +1,37 @@
 import React from 'react'
 import './CheckoutProduct.css'
-import { useStateValue } from './StateProvider';
+import { useStateValue } from './StateProvider'
 
-function CheckoutProduct({ id, title, image, singleImage, price, rating }) {
+function CheckoutProduct({ id, title, image, singleImage, price }) {
+
+    const [{ cart }, dispatch] = useStateValue();
+
+    const deleteProductFromCart = () => {
+        dispatch({
+            type: "deleteFromCart",
+            id: id,
+        })
+    }
 
     return (
         <div className='checkoutProductWrapper'>
             {image && <img className='checkoutProductImg' src={image} alt="Product" />}
-            {singleImage && <img className='checkoutProductImg' src={singleImage} alt="Image is not showing" />}
+            {singleImage && <img className='checkoutProductSingleImg' src={singleImage} alt="Image is not showing" />}
 
             <div className="checkoutProductDetails">
                 <h1 className="checkoutProductTitle">{title}</h1>
 
-                <span className="checkoutProductPrice">
-                    <strong>₹</strong>
-                    <strong>{price}</strong>
-                </span>
-
-                <div className="checkoutProductRating">
-                    {Array(rating).fill().map((_, i) => (
-                        <span key={i} className='starRating'>&#9733;</span>
-                    ))}
+                <div className="checkoutProductPrice">
+                    <small className='checkoutRsSymbol'>₹</small>
+                    <strong className='checkoutPriceInRupees'>{price}</strong>
                 </div>
-                <button className='checkoutProductDeleteBtn'>Delete</button>
+
+                <div className='checkoutProductGift'>
+                    <small><input type="checkbox" />&nbsp; This will be a gift</small>
+                </div>
+
+                <button className='checkoutProductDeleteBtn' onClick={deleteProductFromCart}>Delete</button>
+
             </div>
         </div>
     )

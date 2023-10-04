@@ -1,13 +1,39 @@
 .checkoutProductWrapper {
     display: flex;
-    width: 60rem;
+    height: 13rem;
+    width: 58rem;
+    border-bottom: 1px solid #d3d3d3;
+    margin-top: 2.3rem;
 }
 
 .checkoutProductDetails {
     padding-left: 1.25rem;
+    padding-right: 5rem;
+}
+
+.checkoutProductPrice {
+    margin-top: 0.5rem;
+}
+
+.checkoutRsSymbol {
+    vertical-align: middle;
+}
+
+.checkoutPriceInRupees {
+    font-size: 1.1rem;
+    margin-left: 0.2rem;
+}
+
+.checkoutProductGift {
+    margin-top: 0.5rem;
+}
+
+input[type="checkbox"] {
+    vertical-align: text-top;
 }
 
 .checkoutProductDeleteBtn {
+    display: block;
     background-color: #fff;
     color: #007185;
     border: 1px solid #d3d3d3;
@@ -15,7 +41,7 @@
     border-bottom: none;
     padding-left: 1rem;
     padding-right: 1rem;
-    margin-top: 1rem;
+    margin-top: 2.7rem;
 }
 
 .checkoutProductDeleteBtn:hover {
@@ -23,10 +49,19 @@
     cursor: pointer;
 }
 
-.checkoutProductImg {
+.checkoutProductImg, .checkoutProductSingleImg {
     object-fit: contain;
     height: 11.25rem;
+}
+
+.checkoutProductImg {
     width: 11.25rem;
+    margin-left: 1.5rem;
+}
+
+.checkoutProductSingleImg {
+    margin-left: 3rem;
+    width: 9.7rem;
 }
 
 .checkoutProductTitle {

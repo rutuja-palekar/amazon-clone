@@ -1,5 +1,6 @@
 export const initialState = {
     cart: [],
+    user: null
 }
 
 export const getCartTotal = (cart) => {
@@ -10,13 +11,39 @@ export const getCartTotal = (cart) => {
 
 const Reducer = (state, action) => {
 
-    console.log(action);
     switch (action.type) {
         case "addToCart":
             return {
                 ...state,
                 cart: [...state.cart, action.item],
             }
+
+        case "deleteFromCart":
+            const index = state.cart.findIndex(
+                (cartItem) => cartItem.id === action.id
+            )
+
+            let updateCart = [...state.cart];
+
+            if (index >= 0) {
+                updateCart.splice(index, 1)
+            }
+            else {
+                console.warn(`Can't remove product (id: ${action.id} as its not in the cart)`)
+            }
+
+            return {
+                ...state,
+                cart: updateCart,
+            }
+
+            // 3:17:45
+
+            case "SET_USER":
+                return {
+                    ...state,
+                    user: action.user
+                }
 
         default:
             return state;
