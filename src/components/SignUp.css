@@ -1,0 +1,160 @@
+.signUpWrapper {
+    background-color: #fff;
+    height: max-content;
+}
+
+.signUpLogoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.AmazonSignUpLogo {
+    height: 5rem;
+    width: 10rem;
+}
+
+.inImg {
+    margin-left: -1rem;
+    padding-bottom: 1.4rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+.signUpContainer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5rem;
+}
+
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: 19rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.signUpFormHeading {
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+.signUpNameLabel,
+.signUpMobileNoLabel,
+.signUpEmailLabel,
+.signUpPasswordLabel {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.signUpNameInput,
+.countryCodesDropdownMenu,
+.signUpMobileNoInput,
+.signUpEmailInput,
+.signUpPasswordInput {
+    height: 1.7rem;
+    border: 1px solid #808080;
+    border-radius: 0.2rem;
+    margin-top: 0.2rem;
+    padding-left: 0.5rem;
+}
+
+.signUpNameInput:focus,
+.countryCodesDropdownMenu:focus,
+.signUpMobileNoInput:focus,
+.signUpEmailInput:focus,
+.signUpPasswordInput:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(123, 189, 233, 0.967);
+    background-color: #f5f5f5;
+}
+
+.signUpCountryCodesMobileInput {
+    display: flex;
+    margin-top: 0.1rem;
+    margin-bottom: -0.3rem;
+}
+
+.countryCodesDropdownMenu {
+    height: 2rem;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.signUpMobileNoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: -0.8rem;
+}
+
+.signUpMobileNoInput {
+    margin-left: 0.75rem;
+    width: 100%;
+}
+
+.signUpBtn {
+    margin-top: 1rem;
+    height: 2.1rem;
+    background-color: #f8d225;
+    color: #000;
+    border: 1px solid #f8d225;
+    border-radius: 0.5rem;
+}
+
+.signUpBtn:hover {
+    background-color: #edc306;
+    cursor: pointer;
+}
+
+.signUpTermsConditions,
+.signUpPasswordInstructions {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+}
+
+.signUpTermsConditions {
+    margin-top: 1rem;
+}
+
+.signUpPasswordInstructions {
+    margin-left: 0.3rem;
+    margin-top: 0.2rem;
+}
+
+.signUpTermsConditionsInnerTxt , .signUpSignInRedirectLink {
+    color: #0066c0;
+    text-decoration: none;
+}
+
+.errorMessage {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+}
+
+.errorMsg {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #c40000;
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+}
+
+
+.errorMessage  #signUpMobileNoErrorMsg {
+    margin-left: 1.3rem;
+}
+
+.mobileNoInputErrorWrapper {
+    display: block;
+}
