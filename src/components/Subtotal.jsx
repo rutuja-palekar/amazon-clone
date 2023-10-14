@@ -33,7 +33,7 @@ function Subtotal() {
       />
 
       <div className="proceedToBuyBtnContainer">
-        <button className='proceedToBuyBtn'>Proceed to Buy</button>
+        <button className='proceedToBuyBtn' onClick={e => navigate('/payment')}>Proceed to Buy</button>
       </div>
 
     </div>

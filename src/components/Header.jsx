@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from 'react-router-dom';
 import { useStateValue } from './StateProvider.jsx'
 import { auth } from './firebase';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 function Header() {
     const [{ cart, user }, dispatch] = useStateValue()
@@ -23,17 +24,31 @@ function Header() {
                 <img className='headerLogo' src={AmazonLogo} alt='Logo' />
             </Link>
 
+            <div className="headerNav">
+                <Link className='headerSelectAddressLink' to={!user ? '/login' : '/addnewaddress'}>
+
+                    <div className="navLocationSelectAddressMenus">
+                        <span className="navMenuOne" id='navMenuSelectAddress'>{user ? `Deliver to ${getFirstName(user.displayName)}` : 'Hello'}</span>
+
+                        <div className="locationSelectAddressWrapper">
+                            <LocationOnOutlinedIcon style={LocationOnOutlinedIconStyle} />
+                            <span className="navMenuTwo">{user ? '' : 'Select your address'}</span>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+
             <div className="headerSearch">
                 <input type="text" className="headerSearchInput" />
                 <SearchIcon className='searchIcon' />
             </div>
 
             <div className="headerNav">
-                <Link className='headerLoginLink' to={!user && '/login'}> 
-                <div className="navMenus" onClick={signOutHandler}>
-                    <span className="navMenuOne">Hello {user?.email}</span>
-                    <span className="navMenuTwo">{user ? 'Sign Out' : 'Sign In'}</span>
-                </div>
+                <Link className='headerLoginLink' to={!user && '/login'}>
+                    <div className="navMenus" onClick={signOutHandler}>
+                        <span className="navMenuOne">Hello, {!user ? 'Guest' : getFirstName(user.displayName)}</span>
+                        <span className="navMenuTwo">{user ? 'Sign Out' : 'Sign In'}</span>
+                    </div>
                 </Link>
 
                 <div className="navMenus">
@@ -41,15 +56,10 @@ function Header() {
                     <span className="navMenuTwo">& Orders</span>
                 </div>
 
-                <div className="navMenus">
-                    <span className="navMenuOne">Your</span>
-                    <span className="navMenuTwo">Prime</span>
-                </div>
-
                 <Link to="/checkout">
                     <div className='cartIconContainer'>
-                        <ShoppingCartOutlinedIcon style={{ fontSize: '2rem' }} />
-                        <span className="navMenuTwo headerCartCount">{cart?.length}</span>
+                        <ShoppingCartOutlinedIcon style={ShoppingCartOutlinedIconStyle} />
+                        <span className="navMenuTwo" id='headerCartCount'>{cart?.length}</span>
                     </div>
                 </Link>
 
