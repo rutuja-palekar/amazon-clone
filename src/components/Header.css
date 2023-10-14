@@ -1,10 +1,10 @@
 .header {
     height: 3.7rem;
-    width: calc(100% - 1rem); 
+    width: calc(100% - 1rem);
     display: flex;
     align-items: center;
     background-color: #121921;
-    position: sticky;
+    position: sticky;  /* sticky */
     top: 0;
     z-index: 100;
     padding-right: 1rem;
@@ -14,8 +14,10 @@
     height: 3rem;
     width: 7rem;
     object-fit: contain;
-    margin: 0 1.25rem;
     margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .headerSearch {
@@ -48,16 +50,48 @@
     justify-content: space-evenly;
 }
 
+.headerSelectAddressLink,
 .headerLoginLink {
     text-decoration: none;
 }
 
-.navMenus {
+.navMenus,
+.navLocationSelectAddressMenus {
     display: flex;
     flex-direction: column;
     margin-left: 0.6rem;
-    margin-right: 0.6rem;
     color: #fff;
+}
+
+.navMenus:hover,
+.navLocationSelectAddressMenus:hover,
+.headerLogo:hover,
+.cartIconContainer:hover {
+    border: 1px solid #fff;
+    border-radius: 0.15rem;
+}
+
+.navMenus,
+.navLocationSelectAddressMenus {
+    padding: 0.5rem;
+}
+
+.navMenus {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.navLocationSelectAddressMenus {
+    margin-right: 1rem;
+}
+
+.locationSelectAddressWrapper {
+    display: flex;
+}
+
+#navMenuSelectAddress {
+    margin-left: 1.5rem;
+    margin-right: 2rem;
 }
 
 .navMenuOne {

@@ -17,6 +17,24 @@ function Header() {
         }
     }
 
+    const getFirstName = (fullName) => {
+        if (fullName) {
+            const nameParts = fullName.split(' ');
+            return nameParts[0];
+        }
+        return '';
+    }
+
+    const LocationOnOutlinedIconStyle = {
+        fontSize: '1.5rem',
+        marginTop: '-0.2rem'
+    }
+
+    const ShoppingCartOutlinedIconStyle = {
+        fontSize: '1.7rem',
+        marginTop: '0rem'
+    }
+
     return (
         <header className='header'>
 

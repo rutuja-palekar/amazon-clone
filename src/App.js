@@ -4,9 +4,12 @@ import Home from './components/Home';
 import Checkout from './components/Checkout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/Login'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from './components/firebase';
 import { useStateValue } from './components/StateProvider';
+import Payment from './components/Payment';
+import SignUp from './components/SignUp';
+import AddNewAddress from './components/AddNewAddress';
 
 function App() {
   const [{ }, dispatch] = useStateValue();
@@ -41,7 +44,10 @@ function App() {
 
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path='/signup' element={<SignUp />}></Route>
           <Route path="/checkout" element={<><Header /><Checkout /></>} />
+          <Route path="/addnewaddress" element={<><Header /><AddNewAddress /></>} />
+          <Route path="/payment" element={<><Header /><Payment /></>}></Route>
           <Route path="/" element={<><Header /><Home /></>} />
         </Routes>
 
