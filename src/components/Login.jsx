@@ -21,20 +21,8 @@ function Login() {
       .catch(error => alert(error.message))
   }
 
-  const signUpHandler = (e) => {
-    e.preventDefault();
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((auth) => {
-        console.log(auth)
-
-        if (auth) {
-          navigate('/')  // After creating new user redirect to the home page
-        }
-
-      })
-      .catch((error) => alert(error.message))
+  const signUpClickHandler = () => {
+    navigate('/SignUp')
   }
 
   return (
@@ -65,7 +53,7 @@ function Login() {
       <div className="signUpRedirectContainer">
         <h1 className='signUpHeading'>New to Amazon?</h1>
 
-        <button className='signUpNavigateBtn' type='submit' onClick={signUpHandler}>Create your Amazon account</button>
+        <button className='signUpNavigateBtn' type='submit' onClick={signUpClickHandler}>Create your Amazon account</button>
       </div>
     </div>
   )
