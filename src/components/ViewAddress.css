@@ -1,0 +1,151 @@
+.viewAddressWrapper {
+    height: 100%;
+    max-height: max-content;
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 10rem;
+}
+
+.headingAddressWrapper {
+    margin-left: 10rem;
+    margin-right: 10rem;
+    width: calc(100% - 20rem);
+}
+
+.viewAddressHeading {
+    font-size: 1.75rem;
+    font-weight: 400;
+    padding-top: 3rem;
+}
+
+.addAddressContainer {
+    height: 16.62rem;
+    width: 20rem;
+    margin-top: 2rem;
+}
+
+.addAddressContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px dashed #c7c7c7;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.addNewAddressNavLink {
+    text-decoration: none;
+}
+
+.addAddressHeading {
+    font-size: 1.5rem;
+    color: #565959;
+}
+
+.addNewAdViewAdWrapper {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+}
+
+.addressContainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: 2rem;
+}
+
+.viewAddressContainer {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    font-size: 0.87rem;
+}
+
+.userAddressContainer {
+    border: none;
+}
+
+.viewAddFullNameHeading {
+    font-weight: 600;
+    font-size: 0.87rem;
+    color: #000000;
+    margin-top: 1rem;
+}
+
+.address {
+    color: #000000;
+    margin-top: 0.5rem;
+    line-height: 1.2rem;
+}
+
+.addressPhoneNo {
+    color: #000000;
+    line-height: 1.3rem;
+}
+
+.viewAddressContainerWrapper {
+    display: flex;
+    border: 1px solid #c7c7c7;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .16);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    height: 16.62rem;
+    width: 20rem;
+}
+
+.addressContainerWrapper {
+    margin-top: -1rem;
+    margin-right: 10rem;
+    width: 100%;
+}
+
+.viewAddressNo {
+    display: block;
+}
+
+.deleteAddressBtn {
+    display: block;
+    background-color: #fff;
+    color: #007185;
+    border: none;
+    margin-top: 6rem;
+}
+
+.deleteAddressBtn:hover {
+    color: #e65d2c;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.loaderWrapper {
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -4rem;
+}
+
+.loader {
+    width: 4rem;
+    height: 4rem;
+    border: 0.3rem solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
