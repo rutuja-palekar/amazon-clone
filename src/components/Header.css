@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     background-color: #121921;
-    position: sticky;  /* sticky */
+    position: sticky; 
     top: 0;
     z-index: 100;
     padding-right: 1rem;
