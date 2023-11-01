@@ -43,7 +43,7 @@ function Header() {
             </Link>
 
             <div className="headerNav">
-                <Link className='headerSelectAddressLink' to={!user ? '/login' : '/addnewaddress'}>
+                <Link className='headerSelectAddressLink' to={!user ? '/login' : '/viewaddress'}>
 
                     <div className="navLocationSelectAddressMenus">
                         <span className="navMenuOne" id='navMenuSelectAddress'>{user ? `Deliver to ${getFirstName(user.displayName)}` : 'Hello'}</span>
