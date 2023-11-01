@@ -5,7 +5,7 @@ import inImg from '../imagesicons/inImg.png'
 import { Link, useNavigate } from 'react-router-dom'
 import CountryCodes from './CountryCodes'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc } from 'firebase/firestore';
 import { SignalCellularNullRounded } from '@mui/icons-material'
 
 
@@ -119,14 +119,12 @@ function SignUp() {
 
 
     const signUpUser = async () => {
-
         try {
-            // Create a new user account with email and password
             const auth = getAuth();
             const userCredential = await createUserWithEmailAndPassword(auth, emailId, password);
 
             await updateProfile(userCredential.user, { displayName: fullName });
-            
+
             // If an email is provided, send a verification email
             // if (emailId) {
             //     await sendEmailVerification(userCredential.user);
@@ -135,12 +133,12 @@ function SignUp() {
             const mobileNumber = selectedCountry ? `${selectedCountry.mobileCode}${mobileNo}` : `+91${mobileNo}`;
 
 
-            // Save user data to Firestore
+            // Set the user's document ID to their UID
             const db = getFirestore();
-            const userCollection = collection(db, "users");
-
-
-            await addDoc(userCollection, {
+            const userUID = userCredential.user.uid;
+            const userDocRef = doc(db, "users", userUID);
+    
+            await setDoc(userDocRef, {
                 fullName: fullName,
                 mobileNo: mobileNumber,
                 emailId: emailId,
@@ -151,6 +149,7 @@ function SignUp() {
             alert("Error registering user: " + error.message);
         }
     };
+
 
 
     const signUpHandler = async (e) => {
@@ -216,7 +215,7 @@ function SignUp() {
 
 
                                 <div className='mobileNoInputErrorWrapper'>
-                                    <input type="text" className="signUpMobileNoInput"  id='signUpMobileNoLabel' placeholder='Mobile number' onChange={e => setMobileNo(e.target.value)} onBlur={validateMobileNo} />
+                                    <input type="text" className="signUpMobileNoInput" id='signUpMobileNoLabel' placeholder='Mobile number' onChange={e => setMobileNo(e.target.value)} onBlur={validateMobileNo} />
                                     <div>
                                         <span className="errorMsg" id='signUpMobileNoErrorMsg'>{mobileNoError}</span>
                                     </div>
