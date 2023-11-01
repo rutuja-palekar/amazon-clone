@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AddNewAddress.css'
 import CountryCodes from './CountryCodes'
 import indianStates from './indianStates';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import './firebase'
+import { auth, database } from './firebase';
+import { addDoc, collection, doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 function AddNewAddress() {
   const [chooseCountry, setChosenCountry] = useState({ name: 'India' });
@@ -31,8 +37,11 @@ function AddNewAddress() {
   const [addCityNameError, setAddCityNameError] = useState('');
 
 
+  const navigate = useNavigate()
+
+
   const countryChangeHandler = (e) => {
-    const chosenValue = e.target.value
+    const chosenValue = e.target.value;
     const chosenCountryInfo = CountryCodes.find((country) => country.value === chosenValue)
 
     if (chosenCountryInfo) {
@@ -44,7 +53,7 @@ function AddNewAddress() {
     }
   }
 
-  const addFullNameHandler = (e) => {
+  const addFullNameHandler = () => {
     const addNamePattern = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
 
     if (addFullName === "") {
@@ -73,6 +82,7 @@ function AddNewAddress() {
     }
   }
 
+  
   const addMobileNoHandler = () => {
     const addMobileNoPattern = /^\d{1,15}$/;
 
@@ -182,164 +192,203 @@ function AddNewAddress() {
     }
   }
 
-  const addAddressHandler = async (e) => {
-    // const selectState = e.target.value;
+  const validateAddressFields = {
+    addCountryName: countryChangeHandler,
+    addFullName: addFullNameHandler,
+    addMobileNo: addMobileNoHandler,
+    addPinCode: addPinCodeHandler,
+    addApartmentName: addApartmentNameHandler,
+    addStreetName: addStreetNameHandler,
+    addLandmarkName: addLandmarkNameHandler,
+    addCityName: addCityNameHandler,
+    addStateName: stateChangeHandler
+  }
+
+  const addAddressHandler = (e) => {
     e.preventDefault()
 
-      countryChangeHandler(e)
-      addFullNameHandler()
-      addMobileNoHandler()
-      addPinCodeHandler()
-      addApartmentNameHandler()
-      addStreetNameHandler()
-      addLandmarkNameHandler()
-      addCityNameHandler()
-      stateChangeHandler()
-      selectStateHandler(e)
+    const isAddFieldsValid = Object.values(validateAddressFields).every(Boolean)
 
-      const addressData = {
-              addressFullName: addFullName,
-              addressMobileNo: addMobileNo,
-              addressPinCode: addPinCode,
-              addressApartmentName: addApartmentName,
-              addressStreetName: addStreetName,
-              addressLandmarkName: addLandmarkName,
-              addressCity: addCityName,
-              addressState: selectState,
-              addressCountry: chooseCountry.name,
-          }
-      
-        console.log(addressData)
-  //   if (isAddressValid) {
-  //     const addressData = {
-  //       addressFullName: addFullName,
-  //       addressMobileNo: addMobileNo,
-  //       addressPinCode: addPinCode,
-  //       addressApartmentName: addApartmentName,
-  //       addressStreetName: addStreetName,
-  //       addressLandmarkName: addLandmarkName,
-  //       addressCity: addCityName,
-  //       addressState: selectState,
-  //       addressCountry: chooseCountry.name,
-  //   }
+    // console.log(isAddFieldsValid)
 
-  //   // Get a reference to the Firestore database
-  //   const db = getFirestore();
-
-  //   // Reference the 'users' collection and add the address data
-  //   const userCollection = collection(db, 'users');
-
-  //   try {
-  //     await addDoc(userCollection, addressData);
-  //     console.log('Address data saved to Firestore');
-  //   } catch (error) {
-  //     console.error('Error saving address data:', error);
-  //   }
-  // }
-}
-
-return (
-  <div className="addNewAddressWrapper">
-
-    <form action="post" className="addNewAddressForm">
-      <h1 className='addNewAddressHeading'>Add a new address</h1>
+    if (isAddFieldsValid) {
+      saveAddressHandler(
+        chooseCountry.name,
+        addFullName,
+        addMobileNo,
+        addPinCode,
+        addApartmentName,
+        addStreetName,
+        addLandmarkName,
+        addCityName,
+        selectState
+      ).then(() => {
+        navigate('/viewaddress')
+      })
+    } else {
+      return;
+    }
+  }
 
 
-      <fieldset className="addNewAddressErrorMesssage">
-        <label htmlFor="countryOrRegion" className="addNewAddressLabel">Country/Region</label>
+  const saveAddressHandler = async (
+    addCountryName,
+    addFullName,
+    addMobileNo,
+    addPinCode,
+    addApartmentName,
+    addStreetName,
+    addLandmarkName,
+    addCityName,
+    addStateName
+  ) => {
+    try {
+      const db = getFirestore();
+      const user = auth.currentUser;
+      const userUID = user.uid;
 
-        <div className="countryOrRegionSelectContainer">
-          <select
-            className='countryNamesDropdownMenu'
-            onChange={countryChangeHandler}
-            value={chooseCountry ? chooseCountry.value : ''}
-          >
+      // Create a reference to the user's document
+      const userDocRef = doc(db, "users", userUID);
 
-            {CountryCodes.map((country) => (
-              <option
-                key={country.value}
-                value={country.value}
-                data-alpha3code={country.alpha3code}
-              >
-                {`${country.name}`}
-              </option>
-            ))}
-          </select>
-        </div>
-        <span className='addNewAddressErrorMsg'></span>
-      </fieldset>
+      // Get the user's data and addresses sub-collection
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userData = userDocSnapshot.data();
+      let addressNumber = 1; // Initialize the address number to 1 by default
 
-      <fieldset className="addNewAddressErrorMesssage">
-        <label htmlFor="fullNameLabel" className="addNewAddressLabel">Full name (First and Last name)</label>
-        <input type="text" className="fullNameInput" id='fullNameLabel' onChange={e => setAddFullName(e.target.value)} onBlur={addFullNameHandler} />
-        <h6 className='addNewAddressErrorMsg'>{addFullNameError}</h6>
-      </fieldset>
+      if (userData && userData.lastAddressNumber) {
+        // Use the last stored address number and increment it for the new address
+        addressNumber = userData.lastAddressNumber + 1;
+      }
 
-      <fieldset className="addNewAddressErrorMesssage">
-        <label htmlFor="mobileNumberLabel" className="addNewAddressLabel">Mobile number</label>
-        <input type="text" className="mobileNumberInput" id='mobileNumberLabel' onChange={e => setAddMobileNo(e.target.value)} onBlur={addMobileNoHandler} />
-        <span className='addNewAddressErrorMsg'>{addMobileNoError}</span>
-      </fieldset>
+      // Create a new address document within the "addresses" sub-collection
+      const addressCollectionRef = collection(userDocRef, "addresses");
+      const newAddress = {
+        addCountryName,
+        addFullName,
+        addMobileNo,
+        addPinCode,
+        addApartmentName,
+        addStreetName,
+        addLandmarkName,
+        addCityName,
+        addStateName
+      };
 
-      <fieldset className="addNewAddressErrorMesssage">
-        <label htmlFor="pinCodeLabel" className="addNewAddressLabel">Pincode</label>
-        <input type="text" className="pinCodeInput" id='pinCodeLabel' placeholder='6 digits [0-9] PIN code' onChange={e => setAddPinCode(e.target.value)} onBlur={addPinCodeHandler} />
-        <span className='addNewAddressErrorMsg'>{addPinCodeError}</span>
-      </fieldset>
+      // Add the new address document to the sub-collection with the incremented address number
+      await addDoc(addressCollectionRef, { [`address${addressNumber}`]: newAddress });
 
-      <fieldset className="addNewAddressErrorMesssage">
-        <label htmlFor="ApartmentName" className="addNewAddressLabel">Flat, House no., Building, Company, Apartment</label>
-        <input type="text" className="ApartmentNameInput" id='ApartmentName' onChange={e => setAddApartmentName(e.target.value)} onBlur={addApartmentNameHandler} />
-        <span className='addNewAddressErrorMsg'>{addApartmentNameError}</span>
-      </fieldset>
+      // Update the lastAddressNumber in the user's document
+      await updateDoc(userDocRef, { lastAddressNumber: addressNumber });
 
-      <fieldset className="addNewAddressErrorMessage">
-        <label htmlFor="streetName" className="addNewAddressLabel">Area, Street, Sector, Village</label>
-        <input type="text" className="streeNameInput" id='streetName' onChange={e => setAddStreetName(e.target.value)} onBlur={addStreetNameHandler} />
-        <span className='addNewAddressErrorMsg'>{addStreetNameError}</span>
-      </fieldset>
+      console.log('Address saved successfully');
+    } catch (error) {
+      console.error('Error saving address:', error);
+    }
+  };
 
-      <fieldset className="addNewAddressErrorMessage">
-        <label htmlFor="landmarkName" className="addNewAddressLabel">Landmark</label>
-        <input type="text" className="landmarkInput" id='landmarkName' placeholder='E.g. near apollo hospital' onChange={e => setAddLandmarkName(e.target.value)} onBlur={addLandmarkNameHandler} />
-        <span className='addNewAddressErrorMsg'>{addLandmarkNameError}</span>
-      </fieldset>
+  return (
+    <div className="addNewAddressWrapper">
 
-      <fieldset className="addNewAddressErrorMessage">
-        <label htmlFor="townOrCity" className="addNewAddressLabel">Town/City</label>
-        <input type="text" className="townOrCityInput" id='townOrCity' onChange={e => setAddCityName(e.target.value)} onBlur={addCityNameHandler} />
-        <span className='addNewAddressErrorMsg'>{addCityNameError}</span>
-      </fieldset>
+      <form action="post" className="addNewAddressForm">
+        <h1 className='addNewAddressHeading'>Add a new address</h1>
 
-      {chooseCountry.name === 'India' && (
-        <fieldset className="addNewAddressErrorMessage">
-          <label htmlFor="state" className="addNewAddressLabel">State</label>
-          <div className="stateSelectContainer">
+
+        <fieldset className="addNewAddressErrorMesssage">
+          <label htmlFor="countryOrRegion" className="addNewAddressLabel">Country/Region</label>
+
+          <div className="countryOrRegionSelectContainer">
             <select
-              className='indianStatesDropdownMenu'
-              onChange={stateChangeHandler} onBlur={selectStateHandler}
-              value={selectState ? selectState : ''}
+              className='countryNamesDropdownMenu'
+              onChange={countryChangeHandler}
+              value={chooseCountry ? chooseCountry.value : ''}
             >
-              <option disabled hidden value="">Choose a state</option>
 
-              {indianStates.map((state) => (
-                <option key={state} value={state}>
-                  {state}
+              {CountryCodes.map((country) => (
+                <option
+                  key={country.value}
+                  value={country.value}
+                  data-alpha3code={country.alpha3code}
+                >
+                  {`${country.name}`}
                 </option>
               ))}
             </select>
           </div>
-          <span className='addNewAddressErrorMsg'>{addSelectStateNameError}</span>
+          <span className='addNewAddressErrorMsg'></span>
         </fieldset>
-      )}
 
-      <div className="addAddressBtnWrapper">
-        <button className="addAddressBtn" type='submit' onClick={(e) => addAddressHandler(e)}>Add address</button>
-      </div>
+        <fieldset className="addNewAddressErrorMesssage">
+          <label htmlFor="fullNameLabel" className="addNewAddressLabel">Full name (First and Last name)</label>
+          <input type="text" className="fullNameInput" id='fullNameLabel' onChange={e => setAddFullName(e.target.value)} onBlur={addFullNameHandler} value={addFullName} />
+          <h6 className='addNewAddressErrorMsg'>{addFullNameError}</h6>
+        </fieldset>
 
-    </form>
-  </div>
-)
+        <fieldset className="addNewAddressErrorMesssage">
+          <label htmlFor="mobileNumberLabel" className="addNewAddressLabel">Mobile number</label>
+          <input type="text" className="mobileNumberInput" id='mobileNumberLabel' onChange={e => setAddMobileNo(e.target.value)} onBlur={addMobileNoHandler} value={addMobileNo} />
+          <span className='addNewAddressErrorMsg'>{addMobileNoError}</span>
+        </fieldset>
+
+        <fieldset className="addNewAddressErrorMesssage">
+          <label htmlFor="pinCodeLabel" className="addNewAddressLabel">Pincode</label>
+          <input type="text" className="pinCodeInput" id='pinCodeLabel' placeholder='6 digits [0-9] PIN code' onChange={e => setAddPinCode(e.target.value)} onBlur={addPinCodeHandler} value={addPinCode} />
+          <span className='addNewAddressErrorMsg'>{addPinCodeError}</span>
+        </fieldset>
+
+        <fieldset className="addNewAddressErrorMesssage">
+          <label htmlFor="ApartmentName" className="addNewAddressLabel">Flat, House no., Building, Company, Apartment</label>
+          <input type="text" className="ApartmentNameInput" id='ApartmentName' onChange={e => setAddApartmentName(e.target.value)} onBlur={addApartmentNameHandler} value={addApartmentName} />
+          <span className='addNewAddressErrorMsg'>{addApartmentNameError}</span>
+        </fieldset>
+
+        <fieldset className="addNewAddressErrorMessage">
+          <label htmlFor="streetName" className="addNewAddressLabel">Area, Street, Sector, Village</label>
+          <input type="text" className="streeNameInput" id='streetName' onChange={e => setAddStreetName(e.target.value)} onBlur={addStreetNameHandler} value={addStreetName} />
+          <span className='addNewAddressErrorMsg'>{addStreetNameError}</span>
+        </fieldset>
+
+        <fieldset className="addNewAddressErrorMessage">
+          <label htmlFor="landmarkName" className="addNewAddressLabel">Landmark</label>
+          <input type="text" className="landmarkInput" id='landmarkName' placeholder='E.g. near apollo hospital' onChange={e => setAddLandmarkName(e.target.value)} onBlur={addLandmarkNameHandler} value={addLandmarkName} />
+          <span className='addNewAddressErrorMsg'>{addLandmarkNameError}</span>
+        </fieldset>
+
+        <fieldset className="addNewAddressErrorMessage">
+          <label htmlFor="townOrCity" className="addNewAddressLabel">Town/City</label>
+          <input type="text" className="townOrCityInput" id='townOrCity' onChange={e => setAddCityName(e.target.value)} onBlur={addCityNameHandler} value={addCityName} />
+          <span className='addNewAddressErrorMsg'>{addCityNameError}</span>
+        </fieldset>
+
+        {chooseCountry.name === 'India' && (
+          <fieldset className="addNewAddressErrorMessage">
+            <label htmlFor="state" className="addNewAddressLabel">State</label>
+            <div className="stateSelectContainer">
+              <select
+                className='indianStatesDropdownMenu'
+                onChange={stateChangeHandler} onBlur={selectStateHandler}
+                value={selectState ? selectState : ''}
+              >
+                <option disabled hidden value="">Choose a state</option>
+
+                {indianStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <span className='addNewAddressErrorMsg'>{addSelectStateNameError}</span>
+          </fieldset>
+        )}
+
+
+        <div className="addAddressBtnWrapper">
+          <button className="addAddressBtn" type='submit' onClick={(e) => addAddressHandler(e)}>Add address</button>
+        </div>
+
+      </form>
+    </div>
+  )
 }
 
 export default AddNewAddress
