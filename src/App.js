@@ -10,6 +10,7 @@ import { useStateValue } from './components/StateProvider';
 import Payment from './components/Payment';
 import SignUp from './components/SignUp';
 import AddNewAddress from './components/AddNewAddress';
+import ViewAddress from './components/ViewAddress';
 
 function App() {
   const [{ }, dispatch] = useStateValue();
@@ -17,7 +18,7 @@ function App() {
   // Used the 'useEffect' hook to listen for changes in the authentication state.
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
-      console.log("The user is", authUser)
+      // console.log("The user is", authUser)
 
       // If a user is authenticated, dispatch an action to set the user.
       if (authUser) {
@@ -46,8 +47,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path="/checkout" element={<><Header /><Checkout /></>} />
+          <Route path='/viewaddress' element={<><Header /><ViewAddress /></>} />
           <Route path="/addnewaddress" element={<><Header /><AddNewAddress /></>} />
-          <Route path="/payment" element={<><Header /><Payment /></>}></Route>
+          <Route path="/payment" element={<Payment />}></Route>
           <Route path="/" element={<><Header /><Home /></>} />
         </Routes>
 
