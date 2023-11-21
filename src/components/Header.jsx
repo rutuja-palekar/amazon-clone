@@ -50,7 +50,7 @@ function Header() {
 
                         <div className="locationSelectAddressWrapper">
                             <LocationOnOutlinedIcon style={LocationOnOutlinedIconStyle} />
-                            <span className="navMenuTwo">{user ? '' : 'Select your address'}</span>
+                            <span className="navMenuTwo">{user ? `` : 'Select your address'}</span>
                         </div>
                     </div>
                 </Link>
@@ -69,10 +69,12 @@ function Header() {
                     </div>
                 </Link>
 
-                <div className="navMenus">
-                    <span className="navMenuOne">Returns</span>
-                    <span className="navMenuTwo">& Orders</span>
-                </div>
+                <Link to="/orders">
+                    <div className="navMenus">
+                        <span className="navMenuOne">Returns</span>
+                        <span className="navMenuTwo">& Orders</span>
+                    </div>
+                </Link>
 
                 <Link to="/checkout">
                     <div className='cartIconContainer'>
