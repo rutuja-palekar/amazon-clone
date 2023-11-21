@@ -103,6 +103,10 @@
     font-weight: 800;
 }
 
+a {
+    text-decoration: none;
+}
+
 .cartIconContainer {
     color: white;
 }
