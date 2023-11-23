@@ -11,6 +11,11 @@ import Payment from './components/Payment';
 import SignUp from './components/SignUp';
 import AddNewAddress from './components/AddNewAddress';
 import ViewAddress from './components/ViewAddress';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import Orders from './components/Orders';
+
+export const stripePromise = loadStripe('pk_test_51O7vqrSDugAU6TkHKBRu5H1Afp2MC8X4b96McYUqJ4aMySTowDDwqflolMOdjuOysWZA0RzMrOP0YQrPBBTzTMwE00SMcqav3a')
 
 function App() {
   const [{ }, dispatch] = useStateValue();
@@ -38,6 +43,7 @@ function App() {
     })
   }, [])
 
+
   return (
 
     <BrowserRouter>
@@ -49,7 +55,8 @@ function App() {
           <Route path="/checkout" element={<><Header /><Checkout /></>} />
           <Route path='/viewaddress' element={<><Header /><ViewAddress /></>} />
           <Route path="/addnewaddress" element={<><Header /><AddNewAddress /></>} />
-          <Route path="/payment" element={<Payment />}></Route>
+          <Route path="/payment" element={<><Elements stripe={stripePromise}><Payment /></Elements></>}></Route>
+          <Route path='/orders' element={<><Header/><Orders /></>}></Route>
           <Route path="/" element={<><Header /><Home /></>} />
         </Routes>
 
@@ -59,6 +66,3 @@ function App() {
 }
 
 export default App;
-
-
-// 4:11:52
