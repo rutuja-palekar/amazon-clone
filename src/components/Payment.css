@@ -3,6 +3,7 @@
     /* max-height: max-content; */
     width: 100%;
     background-color: #fff;
+    padding-bottom: 10rem;
 }
 
 .checkoutPaymentHeader {
@@ -16,6 +17,7 @@
     vertical-align: middle;
     position: sticky;
     top: 0;
+    z-index: 100;
     margin-left: 1rem;
     margin-right: 1rem;
     background-color: #f7f3f3fa;
@@ -35,23 +37,35 @@
 }
 
 .selectDeliveryAddressWrapper,
-.selectPaymentMethodWrapper {
-    /* background-color: gray; */
-    max-height: max-content;
-    width: 53rem;
-    margin-left: 8rem;
+.paymentReviewItemsWrapper {
     margin-top: 1rem;
 }
 
+.selectDeliveryAddressWrapper,
+.selectPaymentMethodWrapper,
+.paymentReviewItemsWrapper {
+    max-height: max-content;
+    width: 60rem;
+    margin-left: 8rem;
+}
+
+.reviewItemsWrapper,
+.placeOrderTotalWrapper {
+   width: 48rem;
+}
 
 .selectDeliverAddressHeadingNo,
-.selectPaymentMethodHeadingNo {
+.selectPaymentMethodHeadingNo,
+.paymentReviewItemsHeadingNo {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+
+
 .selectDeliverAddressHeading,
-.selectPaymentMethodHeading {
+.selectPaymentMethodHeading,
+.paymentReviewItemsHeading {
     font-size: 1.2rem;
     display: inline-block;
     margin-left: 2rem;
@@ -66,15 +80,29 @@
 }
 
 .showAddressesWrapper,
-.cardDetailsWrapper {
-    height: 28rem;
+.cardDetailsWrapper,
+.reviewItemsWrapper,
+.placeOrderTotalWrapper {
     height: max-content;
-    width: 50rem;
     border: 1px solid #c7c7c7;
     border-radius: 0.5rem;
     margin-top: 0.5rem;
     margin-left: 3rem;
-    /* background-color: maroon; */
+}
+
+.showAddressesWrapper,
+.cardDetailsWrapper {
+    width: 50rem;
+}
+
+.placeOrderTotalWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 1.7rem 1rem 0.3rem;
+    margin-top: 1.3rem;
+    /* height: max-content; */
+    /* width: 50rem; */
 }
 
 .showAddressContainer {
@@ -185,7 +213,6 @@
 .selectPaymentMethodBtnWrapper {
     height: 3.5rem;
     background-color: #F0F2F2;
-    margin-top: 3rem;
     display: flex;
     align-items: center;
     border-top-left-radius: 0;
@@ -197,7 +224,9 @@
 }
 
 .selectAddressBtn,
-.selectPaymentMethodBtn {
+.selectPaymentMethodBtn,
+.placeOrderBtn, 
+.disabledButton  {
     height: 2rem;
     width: auto;
     max-width: max-content;
@@ -205,16 +234,33 @@
     padding: 0.5rem 1rem 0.5rem 1rem;
     border: 1px solid #f8d225;
     border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.selectAddressBtn,
+.selectPaymentMethodBtn,
+.placeOrderBtn {
     background-color: #f8d225;
     color: #000;
-    font-size: 0.8rem;
+}
+
+.selectAddressBtn,
+.selectPaymentMethodBtn {
     font-weight: 700;
 }
 
 .selectAddressBtn:hover,
-.selectPaymentMethodBtn:hover {
+.selectPaymentMethodBtn:hover,
+.placeOrderBtn:hover {
     background-color: #edc306;
     cursor: pointer;
+}
+
+
+.selectDeliveryAddressFinishLine,
+.selectPaymentMethodFinishLine,
+.reviewItemsPlaceOrderFinishLine {
+    margin-top: 1rem;
 }
 
 .selectDeliveryAddressFinishLine,
@@ -225,12 +271,12 @@
 
 .cardPaymentMethod {
     padding: 1.5rem 1rem 0.5rem 1.7rem;
-    /* padding-left: 0.9rem; */
 }
 
 .cardDetailsHeading {
     margin-top: 1rem;
     margin-left: 1.4rem;
+    font-size: 1rem;
 }
 
 .enterCardDetailsWrapper {
@@ -244,6 +290,30 @@
     color: #000;
 }
 
+.paymentCardDetailsError {
+    color: #B12704;
+
+}
+
+.paymentOrderTotal,
+.placeOrderTermsConditions {
+    margin-left: 1rem;
+    color: #565959;
+}
+
+.paymentOrderTotal {
+    color: #B12704;
+}
+
+.placeOrderTermsConditions {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.placeOrderTermsConditionsInnerTxt {
+    color: #007185;
+}
+
 .enterCardDetailsErrorMsg {
     border: none;
 }
@@ -252,24 +322,89 @@
     margin-right: 0.5rem;
 }
 
-.cardNoInput,
-.cardHolderInput,
-.cardCVVInput,
-.selectCardExpireMonth,
-.selectCardExpireYear {
+.paymentCardDetailsForm {
+    margin-left: 1rem;
+    width: 30rem;
+    /* background-color: rgb(231, 47, 47); */
+}
+
+.paymentCardNoLabel,
+.paymentCardHolderNameLabel,
+.paymentCardExpireDtLabel,
+.paymentCardCvcLabel {
+    margin-top: 1rem;
+    color: #202020;
+}
+
+.StripeElement {
+    padding: 0.5rem 0.5rem 0rem 0.5rem;
+}
+
+.StripeElement,
+.paymentCardHolderNameInput {
     height: 1.9rem;
-    padding: 0.1rem 0.5rem;
+    width: 60%;
     margin-top: 0.2rem;
+    margin-bottom: 1rem;
     border: 1px solid #888C8C;
     border-radius: 0.3rem;
     outline: none;
 }
 
-.cardNoInput:focus,
-.cardHolderInput:focus,
-.cardCVVInput:focus,
-.selectCardExpireMonth:focus,
-.selectCardExpireYear:focus {
+.paymentCardHolderNameInput {
+    vertical-align: middle;
+    padding: 0.4rem 0.5rem 0.3rem 0.5rem;
+}
+
+.StripeElement--focus,
+.paymentCardHolderNameInput:focus {
     box-shadow: 0 0 10px rgba(123, 189, 233, 0.967);
     background-color: #f5f5f5;
+}
+
+.reviewItemsWrapper {
+    padding: 1rem;
+}
+
+.reviewItemsHeading {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #565959;
+}
+
+.reviewItems {
+    display: flex;
+    padding-bottom: 1rem;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+}
+
+.reviewItemImg {
+    height: 5.6rem;
+    width: 5.6rem;
+}
+
+.reviewItemTitlePriceWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+.reviewItemTitle {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    /* color: #0b0b0b; */
+    color: #000;
+}
+
+.reviewItemPrice {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #B12704;
+}
+
+.paymentPriceWrapper {
+    display: inline;
 }
