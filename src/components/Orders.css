@@ -1,0 +1,115 @@
+.ordersMainWrapper {
+    background-color: #fff;
+    height: 100vh;
+    width: 100%;
+    padding-bottom: 10rem;
+}
+
+.ordersHeadingSearchBarWrapper {
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.ordersHeading {
+    margin-left: 9rem;
+    margin-right: 0.8rem;
+    padding: 0.6rem;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+.searchBarContainer {
+    height: 1.9rem;
+    width: 20rem;
+    background-color: #fff;
+    font-size: 0.5rem;
+    border: 1px solid #888C8C;
+    border-radius: 0.3rem;
+    margin-left: 15rem;
+    padding: 0.1rem 0rem 0.1rem 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.searchBarContainer:focus {
+    box-shadow: 0 0 10px rgba(123, 189, 233, 0.967)
+}
+
+.ordersSearchBarInput {
+    border: none;
+    font-size: 0.8rem;
+    margin-left: 0.1rem;
+    width: 100%;
+}
+
+.ordersSearchBarInput:focus {
+    outline: none;
+}
+
+.ordersSearchBtn {
+    height: 2rem;
+    width: 7rem;
+    background-color: #252525;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.ordersSearchBtn:hover {
+    background-color: #000;
+}
+
+.ordersHeadingBottomLine {
+    width: 65%;
+    border-top: 1px solid #BBBFBF;
+    margin-top: 1rem;
+    margin-left: 9rem;
+}
+
+.orderItemsWrapper {
+    height: max-content;
+    height: 10rem;
+    width: 65%;
+    border: 1px solid #c7c7c7;
+    border-radius: 0.5rem;
+    margin-top: 3rem;
+    margin-left: 9rem;
+}
+
+.ordersDetailsHeader {
+    height: 4rem;
+    background-color: #F0F2F2;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 1px solid #c7c7c7;
+    border-top-right-radius: 1px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    border-radius: 0.5rem 0.5rem 0rem 0rem;
+}
+
+.orderPlacedDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.orderPlacedDetailsTitle,
+.orderPlacedDetails,
+.orderPlaceDetailsTotalTitle,
+.orderPlaceDetailsTotal,
+.orderPlaceDetailsNameTitle,
+.orderPlaceDetailsName {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #565959;
+}
