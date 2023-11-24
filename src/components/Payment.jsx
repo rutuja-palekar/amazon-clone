@@ -205,7 +205,8 @@ function Payment() {
 
   const fetchClientSecret = async () => {
     try {
-      const response = await fetch('http://localhost:3001/create-payment-intent', {
+      // const response = await fetch('http://localhost:3001/create-payment-intent', {
+      const response = await fetch('https://clone-98611.web.app/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
