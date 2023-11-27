@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, getDocs, doc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
 import './ViewAddress.css'
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Link } from 'react-router-dom';
@@ -47,27 +46,40 @@ export default function ViewAddress() {
     }, []);
 
 
-    const handleRemoveAddress = (addressId) => {
+    const handleRemoveAddress = async (addressId) => {
 
         if (!user) {
-            // Handle the case where the user is not available
             return;
         }
 
         const db = getFirestore();
-        // const user = auth.currentUser;
         const userUID = user.uid;
         const addressesRef = collection(db, 'users', userUID, 'addresses');
         const addressDocRef = doc(addressesRef, addressId);
 
-        deleteDoc(addressDocRef)
-            .then(() => {
-                setAddresses((prevAddresses) => prevAddresses.filter(address => address.id !== addressId));
-            })
-            .catch((error) => {
-                console.error('Error removing address:', error);
-            });
-    };
+        try {
+            // Retrieve the user data to get the current address count
+            const userDocRef = doc(db, 'users', userUID)
+
+            const userDocSnapshot = await getDoc(userDocRef)
+
+            const userData = userDocSnapshot.data()
+
+            // Update the user document to decrease the address count when user deletes one of the address
+            updateDoc(userDocRef, { lastAddressNumber: (userData.lastAddressNumber || 1) - 1 })
+
+            // Delete the address document
+            await deleteDoc(addressDocRef)
+
+            // Update the state to show the removal of the address
+            setAddresses((prevAddresses) => prevAddresses.filter(address => address.id !== addressId))
+        }
+        catch (error) {
+            console.error('Error deleting address:', error)
+        }
+    }
+
+
     // Display a loader till user addresses being fetched
     if (loading) {
         return (
@@ -76,6 +88,7 @@ export default function ViewAddress() {
             </div>
         )
     }
+
 
     const joinPText = (address) => {
         const pTags = [];
@@ -94,8 +107,8 @@ export default function ViewAddress() {
     }
 
     const addressContainers = addresses.map((address, index) => (
-        <div className="viewAddressContainerWrapper">
-            <section className="viewAddressContainer" key={address.id}>
+        <div className="viewAddressContainerWrapper" key={address.id}>
+            <section className="viewAddressContainer">
                 {/* <h1 className='viewAddressNo'>{`Address ${index + 1}:`}</h1> */}
 
                 {Object.keys(address).map((key) => {
@@ -147,5 +160,5 @@ export default function ViewAddress() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
