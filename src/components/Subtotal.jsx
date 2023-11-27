@@ -12,6 +12,12 @@ function Subtotal() {
 
   const cartTotal = getCartTotal(cart).toFixed(2);
 
+  const disableProceedToBuyBtn = () => {
+    if (cart?.length <= 0) {
+      alert('Please select at least one item to Checkout')
+    }
+  }
+
   return (
     <div className="subTotalContainer">
     <div className='subTotal'>
@@ -36,7 +42,9 @@ function Subtotal() {
       />
 
       <div className="proceedToBuyBtnContainer">
-        <button className='proceedToBuyBtn' onClick={e => navigate('/payment')}>Proceed to Buy</button>
+        {cart?.length > 0 && (<button className='proceedToBuyBtn' onClick={e => navigate('/payment')}>Proceed to Buy</button>)}
+
+        {cart?.length <= 0 && (<button className='proceedToBuyBtn' onClick={disableProceedToBuyBtn}>Proceed to Buy</button>)}
       </div>
 
     </div>
