@@ -33,10 +33,6 @@
     align-items: center;
 }
 
-.searchBarContainer:focus {
-    box-shadow: 0 0 10px rgba(123, 189, 233, 0.967)
-}
-
 .ordersSearchBarInput {
     border: none;
     font-size: 0.8rem;
@@ -76,7 +72,7 @@
 
 .orderItemsWrapper {
     height: max-content;
-    height: 10rem;
+    /* height: 10rem; */
     width: 65%;
     border: 1px solid #c7c7c7;
     border-radius: 0.5rem;
@@ -84,8 +80,13 @@
     margin-left: 9rem;
 }
 
+.orderDetailsWrapper {
+    margin-bottom: 2rem;
+}
+
 .ordersDetailsHeader {
-    height: 4rem;
+    /* height: 4rem; */
+    height: max-content;
     background-color: #F0F2F2;
     display: flex;
     align-items: center;
@@ -93,6 +94,7 @@
     border-top-right-radius: 1px solid #c7c7c7;
     border-bottom: 1px solid #c7c7c7;
     border-radius: 0.5rem 0.5rem 0rem 0rem;
+    padding: 1rem;
 }
 
 .orderPlacedDetailsContainer {
@@ -110,6 +112,80 @@
 .orderPlaceDetailsNameTitle,
 .orderPlaceDetailsName {
     font-size: 0.75rem;
+    line-height: 1.1rem;
+}
+
+.orderPlacedDetailsTitle,
+.orderPlaceDetailsTotalTitle,
+.orderPlaceDetailsNameTitle {
     text-transform: uppercase;
+}
+
+.orderPlacedDetails,
+.orderPlaceDetailsTotal,
+.orderPlaceDetailsName {
+    font-size: 0.87rem;
+}
+
+.orderPlacedDetailsTitle,
+.orderPlacedDetails,
+.orderPlaceDetailsTotalTitle,
+.orderPlaceDetailsTotal,
+.orderPlaceDetailsNameTitle {
     color: #565959;
+}
+
+.orderPlaceDetailsName {
+    color: #007185;
+}
+
+.retrieveImg {
+    height: 6rem;
+    width: 6rem;
+    margin: 2rem 2rem 0rem 2rem;
+}
+
+.orderDetailsLoaderWrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -4rem;
+}
+
+.orderDetailsLoader {
+    width: 4rem;
+    height: 4rem;
+    border: 0.3rem solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.orderDetailsImgTitleWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.orderPlaceTitle {
+    color: #007185;
+    font-size: 0.87rem;
+    line-height: 1.25rem;
+}
+
+.orderPlaceTitle:hover {
+    color: #e65d2c;
+    text-decoration: underline;
+    cursor: pointer;
 }
