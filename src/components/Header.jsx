@@ -46,18 +46,20 @@ function Header() {
                 <Link className='headerSelectAddressLink' to={!user ? '/login' : '/viewaddress'}>
 
                     <div className="navLocationSelectAddressMenus">
-                        <span className="navMenuOne" id='navMenuSelectAddress'>{user ? `Deliver to ${getFirstName(user.displayName)}` : 'Hello'}</span>
+                        <span className="navMenuOne" id='navMenuSelectAddress'>{user ? `Deliver to ${getFirstName(user.displayName)}` : 'Hello, Guest'}</span>
 
                         <div className="locationSelectAddressWrapper">
                             <LocationOnOutlinedIcon style={LocationOnOutlinedIconStyle} />
-                            <span className="navMenuTwo">{user ? `` : 'Select your address'}</span>
+                            <span className="navMenuTwo">
+                                {user ? 'Select your address' : 'Update location'}
+                            </span>
                         </div>
                     </div>
                 </Link>
             </div>
 
             <div className="headerSearch">
-                <input type="text" className="headerSearchInput" />
+                <input type="text" className="headerSearchInput" placeholder='Search Amazon.in' />
                 <SearchIcon className='searchIcon' />
             </div>
 
