@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Checkout from './components/Checkout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/Login'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { auth } from './components/firebase';
 import { useStateValue } from './components/StateProvider';
 import Payment from './components/Payment';
@@ -56,7 +56,7 @@ function App() {
           <Route path='/viewaddress' element={<><Header /><ViewAddress /></>} />
           <Route path="/addnewaddress" element={<><Header /><AddNewAddress /></>} />
           <Route path="/payment" element={<><Elements stripe={stripePromise}><Payment /></Elements></>}></Route>
-          <Route path='/orders' element={<><Header/><Orders /></>}></Route>
+          <Route path='/orders' element={<><Header /><Orders /></>}></Route>
           <Route path="/" element={<><Header /><Home /></>} />
         </Routes>
 
