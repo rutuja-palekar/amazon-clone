@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './AddNewAddress.css'
 import CountryCodes from './CountryCodes'
 import indianStates from './indianStates';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './firebase'
-import { auth, database } from './firebase';
+import { auth } from './firebase';
 import { addDoc, collection, doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,6 +35,7 @@ function AddNewAddress() {
   const [addCityName, setAddCityName] = useState('');
   const [addCityNameError, setAddCityNameError] = useState('');
 
+  const [checkAddressFields, setCheckAddressFields] = useState(false)
 
   const navigate = useNavigate()
 
@@ -82,7 +82,7 @@ function AddNewAddress() {
     }
   }
 
-  
+
   const addMobileNoHandler = () => {
     const addMobileNoPattern = /^\d{1,15}$/;
 
@@ -204,31 +204,49 @@ function AddNewAddress() {
     addStateName: stateChangeHandler
   }
 
-  const addAddressHandler = (e) => {
-    e.preventDefault()
 
-    const isAddFieldsValid = Object.values(validateAddressFields).every(Boolean)
+  const isAddFieldsValid = Object.values(validateAddressFields).every(Boolean);
 
-    // console.log(isAddFieldsValid)
+  const addAddressHandler = async (e) => {
+    e.preventDefault();
 
     if (isAddFieldsValid) {
-      saveAddressHandler(
-        chooseCountry.name,
-        addFullName,
-        addMobileNo,
-        addPinCode,
-        addApartmentName,
-        addStreetName,
-        addLandmarkName,
-        addCityName,
-        selectState
-      ).then(() => {
-        navigate('/viewaddress')
-      })
+      const user = auth.currentUser;
+      const userUID = user.uid;
+      const userDocRef = doc(getFirestore(), "users", userUID);
+
+      try {
+        const userDocSnapshot = await getDoc(userDocRef);
+        const userData = userDocSnapshot.data();
+
+        // Check the number of existing addresses
+        const addressCount = userData && userData.lastAddressNumber ? userData.lastAddressNumber : 0;
+
+        if (addressCount < 5) {
+          saveAddressHandler(
+            chooseCountry.name,
+            addFullName,
+            addMobileNo,
+            addPinCode,
+            addApartmentName,
+            addStreetName,
+            addLandmarkName,
+            addCityName,
+            selectState
+          ).then(() => {
+            navigate('/viewaddress');
+          });
+        } else {
+          alert('You have reached the maximum limit of addresses.');
+          navigate('/viewaddress')
+        }
+      } catch (error) {
+        console.error('Error checking address count:', error);
+      }
     } else {
       return;
     }
-  }
+  };
 
   const saveAddressHandler = async (
     addCountryName,
@@ -281,6 +299,8 @@ function AddNewAddress() {
 
       console.log('Address saved successfully');
     } catch (error) {
+      alert('Enter your address details')
+      navigate('/addnewaddress')
       console.error('Error saving address:', error);
     }
   };
