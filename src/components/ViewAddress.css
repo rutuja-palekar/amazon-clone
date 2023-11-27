@@ -1,6 +1,5 @@
 .viewAddressWrapper {
-    height: 100%;
-    max-height: max-content;
+    height: 100vh;
     width: 100%;
     background-color: #fff;
     padding-bottom: 10rem;
