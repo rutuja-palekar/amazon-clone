@@ -126,9 +126,9 @@ function SignUp() {
             await updateProfile(userCredential.user, { displayName: fullName });
 
             // If an email is provided, send a verification email
-            // if (emailId) {
-            //     await sendEmailVerification(userCredential.user);
-            // }
+            if (emailId) {
+                await sendEmailVerification(userCredential.user);
+            }
 
             const mobileNumber = selectedCountry ? `${selectedCountry.mobileCode}${mobileNo}` : `+91${mobileNo}`;
 
