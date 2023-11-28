@@ -7,8 +7,6 @@ export const getCartTotal = (cart) => {
     return cart?.reduce((amount, item) => item.price + amount, 0)
 }
 
-// 2:34:49
-
 const Reducer = (state, action) => {
 
     switch (action.type) {
@@ -36,8 +34,6 @@ const Reducer = (state, action) => {
                 ...state,
                 cart: updateCart,
             }
-
-            // 3:17:45
 
             case "SET_USER":
                 return {

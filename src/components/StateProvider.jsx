@@ -9,5 +9,3 @@ export const StateProvider = ({ reducer, initialState, children }) => (
 )
 
 export const useStateValue = () => useContext(StateContext)
-
-// 2:05:09
