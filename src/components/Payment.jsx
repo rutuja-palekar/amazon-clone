@@ -7,7 +7,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { getFirestore, collection, query, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth } from './firebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useElements, useStripe, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import { getCartTotal } from './Reducer';
@@ -38,8 +38,8 @@ function Payment() {
   const [nicknameEntered, setNicknameEntered] = useState(false);
   const [addressFilled, setAddressFilled] = useState(false);
   const [paymentMethodFilled, setPaymentMethodFilled] = useState(false);
+  const navigate = useNavigate()
   const cartTotal = getCartTotal(cart).toFixed(2);
-
 
   useEffect(() => {
     const pageRefreshHandler = (event) => {
@@ -329,6 +329,7 @@ function Payment() {
           }
           // Add order details to Firestore
           await addOrderToFirestore();
+          navigate('/')
         }
       } else {
         console.error("Failed to obtain clientSecret. Cannot proceed with payment.");
