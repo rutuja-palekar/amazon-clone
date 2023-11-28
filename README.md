@@ -1,10 +1,10 @@
 Project Title: Amazon Clone – Full Stack Web App  
-
-
+  
+  
 Project Overview:  
 This project is an Amazon clone, a full-stack web application built using a variety of technologies. The primary purpose is to provide users with an experience similar to the Amazon platform, including features like sign-up, sign-in, product browsing, cart management, address management, and order history.  
-
-
+  
+  
 Tech Stack:  
   
 Frontend:  
@@ -112,7 +112,7 @@ Solution: Implemented a structured system for handling addresses using Firebase.
 Challenge: Integrating Stripe for secure payment processing required coordination between the frontend and backend, was a technical integration challenge.  
 Solution: Utilized Express on the backend to communicate with Stripe, facilitating server-side payment processing. This approach ensured a secure and smooth payment transaction flow.  
   
-4.Firebase Data Handling for Orders:  
+4.Firebase Data Handling for Orders:   
   
 Challenge: Efficiently storing and retrieving order data from Firebase presented challenge in data organization and retrieval.  
 Solution: Strategically organized order data in Firebase, optimizing data retrieval for the user's order history. This approach maximized efficiency without resorting to complex Firebase Cloud Functions.  
