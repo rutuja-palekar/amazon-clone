@@ -163,7 +163,7 @@ function SignUp() {
         if (selectedCountry) {
             signUpUser()
                 .then(() => {
-                    navigate('/');
+                    navigate('/login');
                 })
                 .catch((error) => {
                     alert("Account can't be created:", error);
