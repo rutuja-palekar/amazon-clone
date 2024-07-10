@@ -12,10 +12,7 @@ HTML5
 CSS3  
 JavaScript  
 React JS  
-Material UI (for icons)  
-react-router-dom package  
-react-currency-format package  
-date-fns package  
+Material UI (for icons only)  
   
 Backend:  
 Firebase for user authentication and data storage  
